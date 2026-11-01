@@ -1,0 +1,63 @@
+---
+title: "データモデル"
+description: "タスクオブジェクト・保存方式・ステータス"
+---
+
+# データモデル
+
+## Taskオブジェクト
+
+```json
+{
+  "id": "48e8c896-52ae-4f15-a152-6e7b120321e4",
+  "title": "Write documentation",
+  "status": "active",
+  "createdAt": "2026-11-01T10:00:00.000Z"
+}
+```
+
+上記は形式を示すサンプルです。
+
+| フィールド | 型 | 説明 |
+| --- | --- | --- |
+| `id` | string | `crypto.randomUUID()` で生成されるID |
+| `title` | string | 前後空白を除いたタイトル |
+| `status` | string | `active` または `done` |
+| `createdAt` | string | 作成日時（ISO 8601文字列） |
+
+`STATUS` 定数は次のように定義されています。
+
+```javascript
+export const STATUS = Object.freeze({
+  ACTIVE: "active",
+  DONE: "done"
+});
+```
+
+## 永続化
+
+保存先はブラウザの `localStorage` です。
+
+| 項目 | 値 |
+| --- | --- |
+| キー | `taskboard-demo.tasks.v1` |
+| 保存形式 | Task配列のJSON文字列 |
+| 読み込み | 起動時の `load()` |
+| 書き込み | タスク変更後の `save()` |
+
+```javascript
+localStorage.setItem(
+  "taskboard-demo.tasks.v1",
+  JSON.stringify(tasks)
+);
+```
+
+<Note>
+  読み込み時には「JSONとして解析できる配列か」を確認しますが、各要素のフィールド構造までを検証する処理はありません。
+</Note>
+
+## データの有効範囲
+
+データは同じオリジンのブラウザ保存領域に保持されます。ブラウザの保存データを削除すると、タスクも失われる可能性があります。
+
+参照：[src/tasks.js](https://github.com/miura-junya-y6f/mintlify_testing/blob/main/src/tasks.js) / [src/app.js](https://github.com/miura-junya-y6f/mintlify_testing/blob/main/src/app.js)
