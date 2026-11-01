@@ -1,0 +1,28 @@
+name: Port Deployment Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate deployment
+        env:
+          TARGET_ENVIRONMENT: ${{ inputs.environment }}
+          REPOSITORY: ${{ github.repository }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          echo "Deploying to $TARGET_ENVIRONMENT"
+          echo "Repository: $REPOSITORY"
+          echo "Triggered by: $ACTOR"
+          echo "Deployment simulation completed"
