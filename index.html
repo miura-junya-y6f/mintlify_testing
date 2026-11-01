@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TaskBoard Demo</title>
+  <link rel="stylesheet" href="./src/styles.css"/>
+</head>
+<body>
+  <main>
+    <header><h1>TaskBoard Demo</h1><p>A tiny task manager for Mintlify documentation experiments.</p></header>
+    <section aria-label="Task manager">
+      <form id="task-form"><input id="task-title" type="text" maxlength="120" placeholder="New task..." aria-label="New task title" required/><button type="submit">Add task</button></form>
+      <div class="filters"><input id="search" type="search" placeholder="Search tasks" aria-label="Search tasks"/><select id="status-filter" aria-label="Filter by status"><option value="all">All tasks</option><option value="active">Active</option><option value="done">Completed</option></select></div>
+      <p id="count" aria-live="polite"></p>
+      <ul id="task-list"></ul>
+    </section>
+  </main>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
