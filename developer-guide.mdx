@@ -1,0 +1,70 @@
+---
+title: "開発者ガイド"
+description: "モジュールAPI、テスト、拡張時の注意点"
+---
+
+# 開発者ガイド
+
+## タスク操作モジュール
+
+`src/tasks.js` は次の関数をエクスポートします。
+
+### createTask(title, now?)
+
+タスクのタイトルから新規Taskを生成します。タイトルが空白のみの場合は `Error` を投げます。第2引数の `now` はテスト用に日時を指定でき、未指定時は現在日時を使用します。
+
+```javascript
+const task = createTask("Write docs");
+```
+
+### updateTask(tasks, id, changes)
+
+指定IDに一致するタスクへ `changes` を浅くマージした新しい配列を返します。
+
+```javascript
+const updated = updateTask(tasks, id, { status: STATUS.DONE });
+```
+
+### removeTask(tasks, id)
+
+対象IDを除いた新しいタスク配列を返します。
+
+### filterTasks(tasks, options?)
+
+`options.search` と `options.status` で対象を絞り込みます。
+
+```javascript
+const visible = filterTasks(tasks, {
+  search: "docs",
+  status: "active"
+});
+```
+
+<Warning>
+  `updateTask()` は任意の `changes` をマージするため、呼び出し側で編集可能なフィールドを制御してください。スキーマ検証は実装されていません。
+</Warning>
+
+## テスト
+
+```bash
+npm test
+```
+
+`tests/tasks.test.js` には、次の4つのテストがあります。
+
+1. タスクの生成
+2. 空白タイトルの拒否
+3. 更新・削除と元の配列の不変性
+4. 検索・ステータスフィルター
+
+## 画面を変更する場合
+
+- DOM構造や入力欄のIDを変更する場合は `index.html` と `src/app.js` の参照を合わせます。
+- タスク操作の仕様は `src/tasks.js` にまとめ、可能な限りDOMに依存させないようにします。
+- 保存形式を変更する場合は `STORAGE_KEY` や既存データとの互換性を検討します。
+
+## 現在実装されていない機能
+
+認証、バックエンドAPI、クラウド同期、削除の取り消し、保存エラーの復旧などは実装されていません。
+
+参照：[GitHubソースコード](https://github.com/miura-junya-y6f/mintlify_testing)
