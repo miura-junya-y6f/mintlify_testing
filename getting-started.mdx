@@ -1,0 +1,56 @@
+---
+title: "Getting Started"
+description: "TaskBoard Demoをローカル起動してテストする方法"
+---
+
+# Getting Started
+
+## 前提条件
+
+- Git
+- Webブラウザ（JavaScriptのES Modulesと `localStorage` が利用できるもの）
+- ローカルHTTPサーバー（例：Python 3）
+- テストを実行する場合はNode.js 18以降
+
+## リポジトリを取得
+
+```bash
+git clone https://github.com/miura-junya-y6f/mintlify_testing.git
+cd mintlify_testing
+```
+
+## Webアプリを起動
+
+```bash
+python3 -m http.server 8000
+```
+
+ブラウザで [http://localhost:8000](http://localhost:8000) を開きます。
+
+<Note>
+  本アプリにビルド処理や `npm install` は不要です。モジュールを正常に読み込むため、HTMLを `file://` で直接開かず、HTTPサーバーから配信してください。
+</Note>
+
+## 動作確認
+
+1. タイトルを入力して「Add task」を選択する
+2. チェックボックスでタスクを完了する
+3. 検索欄でタスクを絞り込む
+4. 「Active」「Completed」で状態を切り替える
+5. 「Edit」でタイトルを編集し、「Delete」で削除する
+
+画面を再読み込みしても、同じブラウザの `localStorage` に保存されているタスクは復元されます。
+
+## 単体テストを実行
+
+```bash
+npm test
+```
+
+`package.json` の `test` スクリプトは `node --test` を実行します。対象は `tests/tasks.test.js` です。
+
+## 次に読む
+
+- [機能仕様](/features)
+- [アーキテクチャ](/architecture)
+- [開発者ガイド](/developer-guide)
