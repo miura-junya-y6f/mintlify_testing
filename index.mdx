@@ -1,0 +1,47 @@
+---
+title: "TaskBoard Demo"
+description: "小規模タスク管理アプリの概要とドキュメント"
+---
+
+# TaskBoard Demo
+
+TaskBoard Demoは、Mintlifyを使ったドキュメント生成を試すための、小規模なタスク管理Webアプリです。
+
+<Info>
+  HTML、CSS、JavaScriptだけで動作します。バックエンド、外部データベース、ユーザー登録は不要です。
+</Info>
+
+## できること
+
+<CardGroup cols={2}>
+  <Card title="タスクを管理" icon="list-check" href="/features">
+    タスクの追加・編集・完了・削除の仕組みを解説します。
+  </Card>
+  <Card title="開発を始める" icon="terminal" href="/getting-started">
+    ローカルで起動し、単体テストを実行します。
+  </Card>
+  <Card title="構造を理解する" icon="workflow" href="/architecture">
+    モジュールの役割とデータの流れを説明します。
+  </Card>
+  <Card title="データモデル" icon="database" href="/data-model">
+    タスクオブジェクトとブラウザ保存の仕様を解説します。
+  </Card>
+</CardGroup>
+
+## 技術スタック
+
+| 項目 | 技術 |
+| --- | --- |
+| 画面 | HTML5 + CSS |
+| ロジック | JavaScript（ES Modules） |
+| 永続化 | ブラウザの `localStorage` |
+| テスト | Node.jsの組み込みテストランナー |
+| サーバーAPI | なし |
+
+## ソースコード
+
+[GitHub: miura-junya-y6f/mintlify_testing](https://github.com/miura-junya-y6f/mintlify_testing)
+
+<Warning>
+  本アプリはドキュメント生成の検証用です。複数ユーザーでのデータ共有、クラウド同期、認証は実装されていません。
+</Warning>

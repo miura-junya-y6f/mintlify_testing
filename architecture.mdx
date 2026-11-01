@@ -1,0 +1,62 @@
+---
+title: "アーキテクチャ"
+description: "TaskBoard Demoの構成要素とデータフロー"
+---
+
+# アーキテクチャ
+
+TaskBoard Demoは、ブラウザだけで完結するクライアントサイドアプリケーションです。
+
+## コンポーネント構成
+
+```text
+index.html
+  ├── src/styles.css        画面のスタイル
+  └── src/app.js            DOM操作・イベント処理
+        ├── src/tasks.js    タスクの生成・更新・削除・検索
+        └── localStorage    タスク一覧の永続化
+```
+
+| ファイル | 責務 |
+| --- | --- |
+| `index.html` | フォーム、検索欄、状態フィルター、タスク一覧の定義 |
+| `src/styles.css` | レイアウトとレスポンシブスタイル |
+| `src/app.js` | イベントの登録、状態管理、画面再描画、保存と読込 |
+| `src/tasks.js` | DOMに依存しないタスク操作関数 |
+| `tests/tasks.test.js` | タスク操作の単体テスト |
+
+## 初期表示
+
+1. `index.html` が `src/app.js` をES Moduleとして読み込みます。
+2. `app.js` の `load()` が `localStorage` の `taskboard-demo.tasks.v1` を読み込みます。
+3. 保存済みのデータがJSON配列でない、またはJSON解析に失敗した場合は空配列から開始します。
+4. `render()` が一覧と未完了件数を表示します。
+
+## 更新処理
+
+```text
+ユーザー操作
+    ↓
+イベントハンドラー (app.js)
+    ↓
+タスク操作関数 (tasks.js)
+    ↓
+tasks変数を更新
+    ↓
+save() → localStorage
+    ↓
+render() → DOM更新
+```
+
+<Info>
+  `updateTask()` と `removeTask()` は新しい配列を返します。これにより、変更前の配列を直接書き換えずに更新できます。
+</Info>
+
+## 設計上の制約
+
+- サーバーやHTTP APIは存在しません。
+- データはブラウザごとに保存され、別端末との同期はありません。
+- 保存処理は `localStorage.setItem()` を同期的に実行します。
+- 保存領域の制限などで `setItem()` が失敗した場合のエラー処理は未実装です。
+
+参照：[src/app.js](https://github.com/miura-junya-y6f/mintlify_testing/blob/main/src/app.js) / [src/tasks.js](https://github.com/miura-junya-y6f/mintlify_testing/blob/main/src/tasks.js)
