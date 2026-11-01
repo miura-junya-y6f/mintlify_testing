@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "luma",
   "name": "TaskBoard Demo",
   "colors": {
     "primary": "#235FE3",
