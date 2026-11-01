@@ -1,0 +1,30 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "TaskBoard Demo",
+  "colors": {
+    "primary": "#235FE3",
+    "light": "#4D7DED",
+    "dark": "#1845B0"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "はじめに",
+        "pages": [
+          "index",
+          "getting-started"
+        ]
+      },
+      {
+        "group": "技術ガイド",
+        "pages": [
+          "architecture",
+          "features",
+          "data-model",
+          "developer-guide"
+        ]
+      }
+    ]
+  }
+}
